@@ -33,7 +33,7 @@ r_map <- terra::rast(
 class_names <- c("Forest", "Agriculture", "Urban", "Water")
 names(class_names) <- 1:4
 
-# 2. Process each polygon
+# Process each polygon
 results <- list()
 
 for (i in 1:length(polygons)) {
@@ -61,5 +61,5 @@ print(results)
 plot(r_map)
 plot(r_area)
 
-# 4. Optional: Save results to disk
+# Save results to disk
 # terra::writeVector(results, "results.gpkg", overwrite = TRUE)
