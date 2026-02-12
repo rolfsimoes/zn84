@@ -1,0 +1,24 @@
+Package: zn84
+Type: Package
+Title: Accurate Geographic Area Calculations for WGS84
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Rolf", "Simoes",
+      email = "rolfsimoes@gmail.com",
+      role = c("aut", "cre")
+    )
+  )
+Description: Tools for precise surface area calculations on geographic
+    data in WGS84 coordinate system. Implements ellipsoid-based
+    calculations to overcome area distortion in latitude-longitude
+    projections. Provides functions to create area rasters, convert
+    polygons to area rasters, and perform zonal statistics with
+    accurate area measurements. Essential for land cover analysis,
+    remote sensing applications, and geographic studies requiring
+    exact surface area computations.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Imports: terra
+RoxygenNote: 7.3.3
