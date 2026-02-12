@@ -14,6 +14,19 @@
 #'
 #' @keywords internal
 .calc_y_area <- function(y_edges, x_res, factor) {
+  # Parameter validation
+  if (!is.numeric(y_edges) || length(y_edges) < 2) {
+    stop("y_edges must be a numeric vector with at least 2 elements")
+  }
+  if (!is.numeric(x_res) || length(x_res) != 1 || x_res <= 0) {
+    stop("x_res must be a positive numeric scalar")
+  }
+  if (!is.numeric(factor) || length(factor) != 1) {
+    stop("factor must be a numeric scalar")
+  }
+  if (any(y_edges < -90 | y_edges > 90)) {
+    stop("y_edges must be within -90 to 90 degrees")
+  }
   # WGS84 ellipsoid parameters
   a <- 6378137.0
   f <- 1 / 298.257223563

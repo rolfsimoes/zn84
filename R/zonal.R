@@ -44,6 +44,19 @@
 #'
 #' @export
 zn_stats <- function(r_area, r_map, ...) {
+  # Parameter validation
+  if (!inherits(r_area, "SpatRaster")) {
+    stop("r_area must be a terra SpatRaster object")
+  }
+  if (!inherits(r_map, "SpatRaster")) {
+    stop("r_map must be a terra SpatRaster object")
+  }
+  if (terra::nrow(r_area) == 0 || terra::ncol(r_area) == 0) {
+    stop("r_area cannot be empty")
+  }
+  if (terra::nrow(r_map) == 0 || terra::ncol(r_map) == 0) {
+    stop("r_map cannot be empty")
+  }
   # Project r_map to r_area CRS
   r_map <- terra::project(r_map, r_area, method = "near")
 

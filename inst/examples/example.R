@@ -36,7 +36,7 @@ names(class_names) <- 1:4
 # Process each polygon
 results <- list()
 
-for (i in 1:length(polygons)) {
+for (i in seq_along(polygons)) {
   cat("Processing polygon", i, "of", length(polygons), "\n")
 
   # Extract individual polygon
@@ -48,7 +48,7 @@ for (i in 1:length(polygons)) {
   # Calculate zonal statistics
   stats <- zn_stats(r_area, r_map)
 
-  # Add polygon ID and class names
+  # Add polygon ID
   stats$id <- i
 
   # Save results (in practice, you might save to disk)
@@ -58,6 +58,7 @@ for (i in 1:length(polygons)) {
 results <- do.call(rbind, results)
 print(results)
 
+# Plot the last area raster and classification map
 plot(r_map)
 plot(r_area)
 

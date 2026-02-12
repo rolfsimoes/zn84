@@ -28,6 +28,25 @@
 #'
 #' @export
 make_area_rast <- function(origin, res, size, a_fact = 1e-4) {
+  # Parameter validation
+  if (!is.numeric(origin) || length(origin) != 2) {
+    stop("origin must be a numeric vector of length 2 (xmin, ymax)")
+  }
+  if (!is.numeric(res) || length(res) %in% 1:2 || any(res <= 0)) {
+    stop("res must be a numeric vector of length 1 or 2 with positive values")
+  }
+  if (!is.numeric(size) || length(size) != 2 || any(size <= 0)) {
+    stop("size must be a numeric vector of length 2 with positive values")
+  }
+  if (!is.numeric(a_fact) || length(a_fact) != 1) {
+    stop("a_fact must be a numeric scalar")
+  }
+  if (origin[1] < -180 || origin[1] > 180 || origin[2] < -90 || origin[2] > 90) {
+    stop("origin coordinates must be within valid WGS84 ranges")
+  }
+  
+  # Handle scalar resolution
+  if (length(res) == 1) res <- c(res, res)
   # Latitudinal edges (y_edges): from top to bottom
   y_edges <- seq(from = origin[2], by = -res[2], length.out = size[2] + 1)
 
@@ -92,6 +111,16 @@ make_area_rast <- function(origin, res, size, a_fact = 1e-4) {
 #'
 #' @export
 poly_to_area_rast <- function(cell, res, a_fact = 1e-4) {
+  # Parameter validation
+  if (!inherits(cell, "SpatVector")) {
+    stop("cell must be a terra SpatVector object")
+  }
+  if (!is.numeric(res) || length(res) %in% 1:2 || any(res <= 0)) {
+    stop("res must be a numeric vector of length 1 or 2 with positive values")
+  }
+  if (!is.numeric(a_fact) || length(a_fact) != 1) {
+    stop("a_fact must be a numeric scalar")
+  }
   # TODO: must be WGS84!
   # CRS Validation
   if (!terra::is.lonlat(cell)) {
